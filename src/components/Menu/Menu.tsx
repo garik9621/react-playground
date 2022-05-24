@@ -21,7 +21,7 @@ export const Menu: React.FC<MenuProps> = (props) => {
 
     return (
         <nav className="Menu">
-            {menu.map(i => <Link to={i.link} className="Menu-item">{i.label}</Link>)}
+            {menu.map((item, index) => <Link to={item.link} key={index} className="Menu-item">{item.label}</Link>)}
         </nav>
     )
 }
