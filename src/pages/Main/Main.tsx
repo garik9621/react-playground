@@ -1,24 +1,36 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setUser, User } from '../../features/user/userSlice';
 import './Main.css'
 
-interface User {
-    name: string;
-    login: string;
-    avatar_url: string;
-    html_url: string;
-}
+
 
 export const Main: React.FC = () => {
-    // TODO: make connect stable with token
     const gitHubLogin = 'garik9621';
-    const [user, setUser] = useState<User | null>(null);
-    fetch(`https://api.github.com/users/${gitHubLogin}`).then(response => response.json()).then(userData => {
-        console.log(userData);
+    const dispatch = useDispatch();
+
+    // TODO: make connect stable with token
+    // const gitHubLogin = 'garik9621';
+    // const [user, setUser] = useState<User | null>(null);
+    // fetch(`https://api.github.com/users/${gitHubLogin}`).then(response => response.json()).then(userData => {
+    //     console.log(userData);
         
-        setUser({
-            ...userData
-        })
-    })
+    //     setUser({
+    //         ...userData
+    //     })
+    // })
+
+
+    const user = useSelector((state: any) => {
+        console.log(state.user);
+        
+
+        return state.user
+        
+    });
+
+    dispatch(setUser());
 
     return (
         <div className="Main">
