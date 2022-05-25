@@ -20,7 +20,7 @@ function App() {
 
       <Page>
           <Routes>
-            <Route path="/">
+            <Route path="/" element={<Main/>} >
               <Route index element={<Main/>} />
               <Route path="game" element={<Game/>} />
               <Route path="about" element={<About/>} />
