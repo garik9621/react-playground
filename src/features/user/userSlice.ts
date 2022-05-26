@@ -31,7 +31,7 @@ const userSlice = createSlice({
     }
 });
 
-
+// example reducer export
 // export const { setUser } = userSlice.actions  
 
 
@@ -40,8 +40,6 @@ export default userSlice.reducer;
 export const selectUser = (state: any): User => state.user;
 
 export const fetchUser = createAsyncThunk<User, string>('user/fetchUser', async (user) => {
-    console.log('user requesting');
-    
     const response = await fetch(`https://api.github.com/users/${user}`);
     const resonseJson = response.json();
 

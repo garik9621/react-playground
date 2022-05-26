@@ -1,16 +1,20 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GITHUB_LOGIN } from '../..';
 import { selectUser, fetchUser } from '../../features/user/userSlice';
 import { AppDispatch } from '../../store';
 import './About.css';
+import { YMaps, Map, Placemark } from 'react-yandex-maps';
 
 export const About: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const user = useSelector(selectUser);
 
-	if (!user.isLoaded) {
-		dispatch(fetchUser(GITHUB_LOGIN));
-	}
+	useEffect(() => {
+		if (!user.isLoaded) {
+			dispatch(fetchUser(GITHUB_LOGIN));
+		}
+	});
 
 	return (
 		<div className="About">
@@ -41,7 +45,13 @@ export const About: React.FC = () => {
 					)}
 				</div>
 
-				<div className="col-6">map</div>
+				<div className="col-6">
+					<YMaps>
+						<Map defaultState={{ center: [55.75, 37.57], zoom: 9 }}>
+							<Placemark geometry={[55.75, 37.57]} />
+						</Map>
+					</YMaps>
+				</div>
 			</div>
 		</div>
 	);
