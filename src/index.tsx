@@ -8,6 +8,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import { Provider } from 'react-redux';
 import { store } from './store';
 
+export const GITHUB_LOGIN = 'garik9621';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

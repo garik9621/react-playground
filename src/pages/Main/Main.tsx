@@ -1,17 +1,19 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { fetchUser, selectUser, setUser, User } from '../../features/user/userSlice';
+import { GITHUB_LOGIN } from '../..';
+import { fetchUser, selectUser, User } from '../../features/user/userSlice';
 import { AppDispatch } from '../../store';
 import './Main.css'
 
 
 
 export const Main: React.FC = () => {
-    const gitHubLogin = 'garik9621';
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector(selectUser);
     
-    dispatch(fetchUser(gitHubLogin));
+    if (!user.isLoaded) {
+        dispatch(fetchUser(GITHUB_LOGIN));
+    }
 
     return (
         <div className="Main">
@@ -20,7 +22,7 @@ export const Main: React.FC = () => {
                     Hey, this is my&nbsp;
                     {user?.name ?
                         (user?.html_url ? <a href={user.html_url} target="blank"> {user.name} </a> : user.name)
-                        : gitHubLogin
+                        : GITHUB_LOGIN
                     }&nbsp;
                     react playground app
                 </h1>

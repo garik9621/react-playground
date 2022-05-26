@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface User {
+    isLoaded: boolean,
     name: string;
     login: string;
     avatar_url?: string;
@@ -8,6 +9,7 @@ export interface User {
 }
 
 const initialState: User = {
+    isLoaded: false,
     name: '',
     login: ''
 };
@@ -16,20 +18,21 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setUser(state) {
-            state.name = 'Igor';
-            state.login = 'garik9621';
-        }
+        // reducer example
+        // setUser(state) {
+        //     state.name = 'Igor';
+        //     state.login = 'garik9621';
+        // }
     },
     extraReducers: builder => {
         builder.addCase(fetchUser.fulfilled, (state, action) => {
-            return action.payload;
+            return {...action.payload, isLoaded: true};
         })
     }
 });
 
 
-export const { setUser } = userSlice.actions  
+// export const { setUser } = userSlice.actions  
 
 
 export default userSlice.reducer;
@@ -37,6 +40,8 @@ export default userSlice.reducer;
 export const selectUser = (state: any): User => state.user;
 
 export const fetchUser = createAsyncThunk<User, string>('user/fetchUser', async (user) => {
+    console.log('user requesting');
+    
     const response = await fetch(`https://api.github.com/users/${user}`);
     const resonseJson = response.json();
 
